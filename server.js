@@ -11,10 +11,11 @@ const app = express();
 app.get('/', function(req, res, next) {
   client.incr('visits', function(err, visits) {
     if(err) return next(err);
-    const servedBy = 'This request is served by ' + os.hostname() + '. ';
-    const pageVisits = 'You have viewed this page ' + visits + ' times! ';
+    const servedBy = 'This request is served by ' + os.hostname();
+    const pageVisits = 'You have viewed this page ' + visits + ' times!';
     const serverTime = 'Server Time: ' + new Date().toISOString();
-    res.send(servedBy + pageVisits + serverTime);
+    const response = [servedBy, pageVisits, serverTime].join('\n');
+    res.send(response);
   });
 });
 
