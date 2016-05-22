@@ -1,17 +1,17 @@
 sudo: required
-
 language: node_js
 node_js:
-  - "5"
-
+- '5'
 services:
-    - docker
-
+- docker
 script:
-  - npm test
-
+- npm test
 after_success:
-  - docker build -t chenglong/simple-node .
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push chenglong/simple-node
-
+- docker build -t chenglong/simple-node .
+- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker push chenglong/simple-node
+env:
+  matrix:
+  - secure: Uhnn8ED7wuq9c0PW2hfzY/aDFAz0lEFYfBqR7t5P49kIz/v08DHcp/7PsQk2hvCqcB+jK+MMV3H8tA/fGeN8yoSgG8v8UUWPAFecVo6rOu5wqOWlIx9kFOFog+58Xkkdylokd+QehsSGWBVBWJH/lqqtsWUKyqF0ujnzoZgkGD3x2suUZuxIFIntabCXoZRykJnud7GPPJwOtfWYHidOp+Pp2e6CIVNSsPwwYJseRAPgDG8aplP6y/YYbF139exntSz9nTbmHokQDW9FcIhtpBuYTnjV2bqPhhH0MZB3M5tAPPC2Xre5wHPDA81EQI8aLHFj5/bXSSim+BBeEGiIiQ+0TJ5oab8LrCv7XZlWnRpUdgOFopbwrEcXu2sRK4k3XOPNFG48l/RwnwVSL0vKn8NHUM/mRLi1Rds8VdCaSXm5YUUG3Y1ZV/5dPb4S7yxx5jn2drPlonhCBLiA5wRBXGy43nAXRgwLoQ70Y7XTXVjAPHazHRtZNnlBFmyVlb/Lf8m4k//vSw0w4mUmYAQexpVDDt3xrrotMHv1F4xNmyopxTTlxD+RtfMmF+CPmSYoCgurzN+5k99jmT6uTxNgkM+GwTW8d4h9yzol5P4GCv0KSNLUqKs6Js1sBkw3gw2VbZoPyzszUKF2FOLu0Pc0Eu0t1MqE5JCMjv1S4UwK/uk=
+  - secure: DIL2suKbijOeFWeBSBL1BKDAk5H8cpOfcx07C55txgibSWAIV75yo9Pf8K1D7K0muM0feOKMn3hLVNABBG3I2FVPbjQs9GVSZPPouL9BZMB/JPvAsVWYc5YWezkbeBrzXK4x7u85olbq+5qvfyNWGqgX0KtR3ikaP5n8/SWxYw1yPR1QHQYYOIg80Zn5gyer+yxJlZ4yRKkjsjlvou/govsI9Nn5l1PcdmhMtn3xtlFCqjrC+RQE4hOx6tp0jy/h2iGb3lrIbvozoXt8gvGFznyHTp82SduPGPXYFmdTXeMCQEPP8f4R7Vqdh0Pu18gj4jCO4yg/snbwQphSvVCdOdR9QYLWc1wVg23Xb6NH1RohIf3eqW1VLobPUYllYK6hFmnyPCzDdf7PcEtcfS5YQC2GRgOQMYm8TWU0mE+rUN0NqN7BxceCvPrOugAT+NMRqS81CXkt8ZGUFIoRuoi6jhmWLugQQZC9B+dlmCFhnixiB3oyCdE44kV9wYx1sEp086LghP/VF0hOUW1Td/Z/Q51JXlkBuAyqMrfHxjCpiAV0o672XuUR5u9mecdORvDhobpx7zpdZRAoVfeTC9T1/GXHnVVdye8b0zGPF9J3YrpHHAi1ZFGqSklmpwiR3djfWaA/zyoxYPKfLxai3Zfe2Of4jAz97Zw7XY961u9KybA=
+  - secure: YjiU6XOr/2baow8tjL4HK2WVd64+ziVnce0fzhQbBVVuAvrfGM3fNqCiUfhs3a24MrDqgLHq073SVyF8gtnhuIRKZVWUMlBN7kC9AtBx0RX8lqrEr2E8Hy/FyNuhgfCkMDU452qjGjLePIvAVWAdklTHja5IjMeKRjLCbLzpHrNrF5EBI+zgofNP45LdwnDVaJ6juIiSE/1JNg+GPn2jXxAXM/HerKhwNEnAR/36tCY/a4BwAEsmT9yk9HWPO00mGpGhFG+5amHjN0UoeKdcq4fzxGVKQDlJaOMDtogtquK6gpp6ZJkgWKcC3C8DvS/5Z7Bh31JjBIo6J/9gJsB9g3FbL6+SHt1pK+tUS0t5Fz9elWvivaOVGTy6JxtzNBQ47kjsGH/phYzY+0XGISHlPpkkjZkE67VBLuHFDkXgAKQl1h9UfmT7l2rCJWsCIACq/04vyBaYdKdaI5+XBVjl8DVFzV+wHzTTOQuRgppZYKT1Um/bU5qLt62vPuTwOkRLI/C8atk4jm04E5LBrFKDPgQnftgvmlK7NjiYC4M8ZDfQgyNwK4eMLZ7YNgchL0Fdx3J2Fax8l3PfKm8SjTiws9DV5H/jUnDZyiijKI290sl63RkohmyDm/wEwHBrNYxZ2Ky0m7h7z8fGPGYBGCNQ7CExkuhzY5cU8hqayfYFbgM=
