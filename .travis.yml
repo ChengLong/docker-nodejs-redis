@@ -1,0 +1,17 @@
+sudo: required
+
+language: node_js
+node_js:
+  - "5"
+
+services:
+    - docker
+
+script:
+  - npm test
+
+after_success:
+  - docker build -t chenglong/simple-node .
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push chenglong/simple-node
+
