@@ -27,5 +27,7 @@ after_success:
 
 after_script:
   - gcloud version
-  - gcloud components update kubectl || true
+  - curl https://sdk.cloud.google.com | bash
+  - bash -l ./gcloud version
+  - bash -l ./gcloud components update kubectl
   - kubectl version
