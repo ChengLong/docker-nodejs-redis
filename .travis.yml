@@ -25,7 +25,7 @@ after_success:
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
 
-before_deploy:
+after_script:
   - gcloud version
   - gcloud components update kubectl || true
   - kubectl version
