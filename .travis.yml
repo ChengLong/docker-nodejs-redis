@@ -13,6 +13,9 @@ env:
     - secure: htu5A6fjnQvJTvinumWI1u1unoDMgY5FleGM8JwVLBQl6Srr1GU/2ulii1LSbypG/JimwMzT6BIRMfNgCzAeBc6aWM8xbZUsLl7p+WFyYNxOW26mVm8Z5R+2JZXm3vZoevjHD35gWIBMReqVySIRLXanZ9SOVRC1IcX2Om1uOoQHAqwrFh4KERWnzepAXylfUtFatqmRmCRczH4m9MKF7OgbZD/7xKHHoJxXLHjmWaCQrLmucb01/e/vl3C/LwOvc+A6fwXhhMFdL5UUn9iVWLBhTYknULjOKDF2AgvahvStxGUEAcscaW4qATW32Ylamn3K4l5X+3ic+fLKQHOR+oCaVmaqcpExbxuBfLHGQkV7DiUePQsS1D5NLfAHBdbd8MJCwxQRlSIt/z/aemkx6uWEBu053c47yuuKltFhAm6B7Z52UkHC8fpFfuy03xgorjNTayghPlYDeFZRzItkibTEY1EH4Sh9yVkAIhv5hqomMQMAkxaEFgmBkK7/8+UHB+sMlBupMiejTqIgZOzIhj1uqDGkokqI2UqlNx1wuqzGJ/KnQWzsgFsnoU0Q1zIzw0i1RAiDu8qj5vSnioqw8pvZWuBDuRltE5U4fup529ZtFSNx4Ceb3ECathc6+3Em8OvtqvBOr44xNBW8XCFbi82Ys3Dd/SEHGwlcwYoT4/A=
     - COMMIT=${TRAVIS_COMMIT::8}
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - PROJECT_NAME=my-kubernetes-codelab
+    - CLUSTER_NAME=nodejs-redis-demo
+    - CLOUDSDK_COMPUTE_ZONE=asia-east1-a
 
 script:
   - npm test
@@ -28,3 +31,5 @@ script:
 
 after_script:
   - ./install_gcloud_kubectl
+  - openssl aes-256-cbc -K $encrypted_76ec51bd775d_key -iv $encrypted_76ec51bd775d_iv -in client-secret.json.enc -out client-secret.json -d
+  - ./gcloud_auth_and_connect
