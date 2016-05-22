@@ -5,10 +5,13 @@
   "author": "Cheng Long <me@chengl.com>",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "dependencies": {
+    "chai": "^3.5.0",
     "express": "^4.13.3",
+    "mocha": "^2.4.5",
     "redis": "^2.2.5"
   }
 }
