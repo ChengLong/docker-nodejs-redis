@@ -27,8 +27,4 @@ script:
 #  - docker push $REPO
 
 after_script:
-  - gcloud version
-  - curl https://sdk.cloud.google.com | bash
-  - bash -l gcloud version
-  - bash -l gcloud components update kubectl
-  - bash -l kubectl version
+  - ./install_gcloud_kubectl
