@@ -1,4 +1,5 @@
 ## Simple Node
+[![Build Status](https://travis-ci.org/ChengLong/docker-nodejs-redis.svg?branch=master)](https://travis-ci.org/ChengLong/docker-nodejs-redis)
 
 This is a simple Node.js app which uses redis as backend. It displays the hostname of the container who serves the request and how many times the page has been visited.
 
