@@ -2,6 +2,7 @@ sudo: required
 language: node_js
 node_js:
   - '5'
+
 services:
   - docker
 
@@ -37,4 +38,4 @@ after_script:
   - bash -l kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
   - bash -l kubectl config set-context default --cluster=default --user=default
   - bash -l kubectl config use-context default
-  - bash -l kubectl patch deployment frontend -p '{"spec": {"template": {"spec": {"containers": [{"name": "$CONTAINER_NAME","image": "$IMAGE:$COMMIT"}]}}}}'
+  - bash -l kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":"$CONTAINER_NAME","image":"$IMAGE:$COMMIT"}]}}}}'
