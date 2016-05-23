@@ -15,19 +15,21 @@ env:
     - secure: FXEj1gwSi+xjpc4GFFS4ehxy6Q4wpmmPq/rlfWijOAYsNwukfkL2gCmnzjTT6ZZVHM47bNtHlTdqTM8bmBjWVeVEPKwvULq6i2neiGI7OI0vh2dsbCMIZ7bCMuRL0/WRq/A8YPsXIK76YIlMg8sSzdGdAmvZpjTbLywSl9KoSlH3S56e2Nz1kb8DhP4emeFcxdXul463JUdOBpCZa8oJLopOaX5+PypOk6XOjOyWkxN938F4w5/4MzhgghcrTRwtOQCPHyJR2zg08MWm5COKi3L2EmgPyctXGGr31YVeRTC9Gg3SJ+Mt8OfsX8f7TnUzhnfA3IszJpxw4cF1snpVmXZED2J1Aa6Gi7mSIhb1CdYNUxUKx6BVnaUGDRfmcxtGOt8Uy0A2sRl3FGhVVH6xQaaTmG3nzU0fm44cO1RwxqXfP4kXqUNj+LlCUC+3hIRrWRMfxjIWwGA0LZIqnVlou2TRLkxdM3IHx46cFqEfpD6Do/NXOCUZYRcE95FqvK6ZrobsZapkI0WkmoO4YdzCkuW9nSc8Y121OWlP9urkzaU4X7tO7FbLshKmjYNL4vLqyJ0gkN21yVJTIJWE6l/TGGi+RxwFF2jzN8oRjOJrWESmUSPa5WhNvuIOu1t0RObwRup0yjArRuUIXxuQt99c1tkfsn52fZWZih3t4bM0bxE=
     - COMMIT=${TRAVIS_COMMIT::8}
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-    - REPO=chenglong/simple-node
-    - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+    - IMAGE=chenglong/simple-node
+    - DEPLOYMENT=frontend
 
 script:
   - npm test
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+  - docker build -t $IMAGE:$COMMIT .
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker tag $IMAGE:$COMMIT $IMAGE:$TAG
+  - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $IMAGE
 
 after_script:
   - "./install_gcloud_kubectl"
   - "./gcloud_auth_and_connect"
+  - kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":'"$CONTAINER_NAME"',"image":"'"$IMAGE"':'"$COMMIT"'"}]}}}}'
