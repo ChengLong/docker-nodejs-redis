@@ -33,9 +33,10 @@ after_success:
 
 after_script:
   - curl https://sdk.cloud.google.com | bash
-  - bash -l gcloud components update kubectl
-  - bash -l kubectl config set-credentials default --username=${GKE_USERNAME} --password=${GKE_PASSWORD}
-  - bash -l kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
-  - bash -l kubectl config set-context default --cluster=default --user=default
-  - bash -l kubectl config use-context default
-  - bash -l kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":"$CONTAINER_NAME","image":"$IMAGE:$COMMIT"}]}}}}'
+  - source /home/travis/.bashrc
+  - gcloud components update kubectl
+  - kubectl config set-credentials default --username=${GKE_USERNAME} --password=${GKE_PASSWORD}
+  - kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
+  - kubectl config set-context default --cluster=default --user=default
+  - kubectl config use-context default
+  - kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":"$CONTAINER_NAME","image":"$IMAGE:$COMMIT"}]}}}}'
