@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-gcloud version
-curl https://sdk.cloud.google.com | bash
-bash -l gcloud version
-bash -l gcloud components update kubectl
