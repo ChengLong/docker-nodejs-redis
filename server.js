@@ -14,7 +14,8 @@ app.get('/', function(req, res, next) {
     const servedBy = 'This request is served by ' + os.hostname();
     const pageVisits = 'You have viewed this page ' + visits + ' times!';
     const serverTime = 'Server Time: ' + new Date().toISOString();
-    const response = [servedBy, pageVisits, serverTime].join('\n');
+    const message = 'Have a nice day!';
+    const response = [servedBy, pageVisits, serverTime, message].join('\n');
     res.send(response);
   });
 });
