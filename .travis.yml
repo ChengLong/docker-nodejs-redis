@@ -22,6 +22,8 @@ env:
     - CONTAINER_NAME=nodejs
 
 script:
+  - docker version
+  - docker-compose version
   - docker-compose run test
 
 after_success:
@@ -29,8 +31,6 @@ after_success:
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -t $IMAGE_VERSION -t $IMAGE:$TAG -t $IMAGE:travis-$TRAVIS_BUILD_NUMBER app
   - docker push $IMAGE
-
-after_script:
   - curl https://sdk.cloud.google.com | bash
   - source /home/travis/.bashrc
   - gcloud components update kubectl
