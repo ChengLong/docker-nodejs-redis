@@ -17,8 +17,6 @@ env:
     - COMMIT=${TRAVIS_COMMIT::8}
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
     - IMAGE=chenglong/simple-node
-    - DEPLOYMENT=frontend
-    - CONTAINER_NAME=nodejs
 
 script:
   - npm test
@@ -39,5 +37,4 @@ after_script:
   - kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
   - kubectl config set-context default --cluster=default --user=default
   - kubectl config use-context default
-  - kubectl get deployments
-    #- kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":"$CONTAINER_NAME","image":"$IMAGE:$COMMIT"}]}}}}'
+  - kubectl patch deployment frontend -p '{"spec":{"template":{"spec":{"containers":[{"name":"nodejs","image":"chenglong/simple-node:latest"}]}}}}'
