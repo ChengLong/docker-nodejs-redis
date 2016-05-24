@@ -14,19 +14,22 @@ env:
     - secure: W1CzoMk6zUyhKhx+Q4mX/O1rh7GKFTrMNpkJ+QqN4WN56K3v49t6kotABXbFU4K8ZP84DhUkQYtm6DbEgCkxeNaT0k0gzKyG+CZo5sI6yqx15CwmR/qCkFruDQqUG/2hZNTP5ZP/7hMQwNCxATxuzu2GOcnwk1YuIJsJ5by9+RdWwKBYYhSG/BokNq6JaYxZx8NeMTa5W/CJXtu/5qFsMDQ07Syg4MgAnRHbRB9uCxpUOtJ44HDhZFOOY48qIDVpYhVpTg0XVzw5VkFNgOuczIYWw/SaWyOyoKgt8FtLhUPDsHtvueFqSJffYlyoh81Uxu+LNAtZoact5wFOwkDM+mzqRe/lzm2hcYY0nc4Dxc1ito43GedQmFnadZSozZfKAEmRV0m+1W6iE6fi+DpHXm3JCmgvolB9khLiYVTHkgaSzbfZDfdBmoXPEcaDuKnY6KTB410sGnadO6IT3Z5x8FtMQ/In/dB7XQr/G1aXve3KjUz8/oLZbS+IWEH8eQEOAR8V6w6HpvQIZE6ccwEzmLILlygne7TSAnOPQX1hiEDdUYYOtoyVEv/NUzd/OpGqNl6edYsXZB1bcY7FWy2YhmJD4mqe5h6mp4yRXYyuFbdC3OIBGpr1vnNaF9uUdayZ59pZ4kIojCQL2SKZKqOYdezyV/h0ohP93FIboi/nL7Q=
     - secure: jxY+/q6svho30zk1RMtnwHhHkYMw+NqQS4n7dOILpsI6zKwC4n2c+xjD0MoOYjVsd/SiJucXeeNR4BcS4+OglsVxja68rBWqV4F3xloGwtMZebqMhNGSV4kitgAkdDNktQid2fQAwUsoCtEfq3A6ijMdOgoehZwxXqFg5+5cRwjI58vVOfdFDGPUO6KXTDhwwXIgTi9zN8nXSNCgHUZfrIGw6jTdFvL2NGkejbX4AqutethTlXlA7lVeE/O1SUW4H8MRl59MyKUwWm/j7qkmM/TX+PUaXSwXgoR0Nzbt2DKTbY56qff1olHaUMuV5c8A5gYlThvVYbMnGRTK7JYOzmchyvRsqc1inxIwU7bi/J1DnQpCX4qF06NBU+OLbx8+qDc9E6l9XGdQ09HFVPOctlNrkfcPDgGVfRYwomU8+gb8MykgBxtUqLIpJN0pr9sNZN4L4jGuv58ThkCfoaH6YgiLKTITJ7cLAE2tNmHj5Kw+vHNvJcUltRdMOSaDI6TyAGkVpUSHaTEOvdvsj5y5wFS3TdIHnTQOWMpBiYSHY7D4trvv6KRagDjoB7DKaAohYPwataJdu3Wu+A0UIsukYPG6uVn4RPJmQHBMT8vTtf9q9eSpoRU68zSnhAL5aXtq1vqtfy4859QQDzpH7JMA87WtJqCQ4Fp8MHOg3uvb+ZM=
     - secure: FXEj1gwSi+xjpc4GFFS4ehxy6Q4wpmmPq/rlfWijOAYsNwukfkL2gCmnzjTT6ZZVHM47bNtHlTdqTM8bmBjWVeVEPKwvULq6i2neiGI7OI0vh2dsbCMIZ7bCMuRL0/WRq/A8YPsXIK76YIlMg8sSzdGdAmvZpjTbLywSl9KoSlH3S56e2Nz1kb8DhP4emeFcxdXul463JUdOBpCZa8oJLopOaX5+PypOk6XOjOyWkxN938F4w5/4MzhgghcrTRwtOQCPHyJR2zg08MWm5COKi3L2EmgPyctXGGr31YVeRTC9Gg3SJ+Mt8OfsX8f7TnUzhnfA3IszJpxw4cF1snpVmXZED2J1Aa6Gi7mSIhb1CdYNUxUKx6BVnaUGDRfmcxtGOt8Uy0A2sRl3FGhVVH6xQaaTmG3nzU0fm44cO1RwxqXfP4kXqUNj+LlCUC+3hIRrWRMfxjIWwGA0LZIqnVlou2TRLkxdM3IHx46cFqEfpD6Do/NXOCUZYRcE95FqvK6ZrobsZapkI0WkmoO4YdzCkuW9nSc8Y121OWlP9urkzaU4X7tO7FbLshKmjYNL4vLqyJ0gkN21yVJTIJWE6l/TGGi+RxwFF2jzN8oRjOJrWESmUSPa5WhNvuIOu1t0RObwRup0yjArRuUIXxuQt99c1tkfsn52fZWZih3t4bM0bxE=
-    - COMMIT=${TRAVIS_COMMIT::8}
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - COMMIT=${TRAVIS_COMMIT::8}
     - IMAGE=chenglong/simple-node
+    - IMAGE_VERSION=$IMAGE:$COMMIT
+    - DEPLOYMENT=frontend
+    - CONTAINER_NAME=nodejs
 
 script:
   - npm test
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t $IMAGE:$COMMIT .
+  - docker build -t $IMAGE_VERSION .
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker tag $IMAGE:$COMMIT $IMAGE:$TAG
-  - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
+  - docker tag $IMAGE_VERSION $IMAGE:$TAG
+  - docker tag $IMAGE_VERSION $IMAGE:travis-$TRAVIS_BUILD_NUMBER
   - docker push $IMAGE
 
 after_script:
@@ -37,4 +40,4 @@ after_script:
   - kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
   - kubectl config set-context default --cluster=default --user=default
   - kubectl config use-context default
-  - kubectl patch deployment frontend -p '{"spec":{"template":{"spec":{"containers":[{"name":"nodejs","image":"chenglong/simple-node:latest"}]}}}}'
+  - kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":'"$CONTAINER_NAME"',"image":'"$IMAGE_VERSION"'}]}}}}'
