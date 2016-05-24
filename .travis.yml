@@ -7,6 +7,7 @@ services:
   - docker
 
 env:
+  DOCKER_COMPOSE_VERSION: 1.6.0
   global:
     - secure: AoSvVfpX77AtMBpXKyHH67wTKWCN9xdXoMWroU2TwewBRToebQmLUesT+6gP2rCVoQ282IpESkZkIUumj38rvCGWpL3fLU67Fb1Fa/SqKQ++OYri3NNmoOLltkHMCHHz2bl7B8/72KJQ8e+sl8KCmKBTaLp1g2/36+DZwL9KZjFOqsQg2pwv3zjOUkZte6v6Igsl7lV1pbLkg9Fq1KEvOZl8D6bHgtNuHJGYZZrHCUDHMXxXeQ8/wL0v7GpUkZAe85Ve+fkPoX7AXYumbi5SsxbwVYG64j4zdU2ydlhmMRfOrT4BIbOHUO1kmP5uSf4/xX+fGJZuGDlVT1P5RTZyvu1dA+X10a0t2pOYHAjTjJp6CNRIKuJ4izBvxCZaLAUd42FfU9BAFyUPlViaDzNZAW3DCoapfnS0xM+UY1U8Z7bs+lIXycqIE6OR4KZXfKtpoKakmh8d0eY8LpUNu81VS9Z2mxfRg0xsYhp/1E/X+LZM/YCzPpOhQCc0ZGJEtbqj1/Qebp/GRBIx9oabBH+JxldqrZApIF0MsGiaIT8Q0LJ8wNVVc7QQqhjwdtvP1Wh2pxOvnzEyAdB4AeKrYv0SMwa3OxpIDtJEP1AvXRTZWXPObSSgAhK2VPnOK9Y++N2BlSKJh9k1nlnzn0FQsHlPUV/r9Ui62tmQbzOyL69xltQ=
     - secure: KLweub+lnStvWmKY/XoDy8nXo4v5lYTHapXtewfDFrnWPL6UQV//kklUAswzGEWp4id9pOolZB4RNfucCBzB1Kb1KgSp23wz9mj+HWY+qUQRsLyIxYwsZf/o9H/MMkesG8jOF/vU35Ne3e7MdSmpNuqEqErIqc25691rBMLSDxi5YS3jcB+vGkv38xtlcDilnUrSneKuNEzuI5Q7MKr6vqIVaW3vbwEs5hEh2oPSAgVno67s9NyfUi2Dl4sIDDwzV+iXc9FNk4Ww6Vkm8uzZvIXhZDuyVnFWSJhgfNgElUna7XfqnWOyPdZQ0rh2iOtKzO9uZQiOoNq8JuT9VstFcFlhsfAtlynB5Xgp/EH9NUIZvUiueRhs0bOH9SKRUijIeTQ/OimuX0y8EZdz7TKSigZkc7iVqD0g2E2kLtv3avTCodwts54V8bX7//r8Y2FE7DFkZRGL7Khf5LPjRj7xVEb9OhEkuSYfs0oEhqyXCSMUNyov3BDFbZ/AWh0smQmKYv36U2JvMfPghNlgAE+b/Xc4F/sJMmNSDdLBmGwoJDJtVA5iB3RCfkZfEeqhMoj2C8uu8s8IASzxh2HnaaO5IQKy7kGwAzzRfazTq6JhvLPfteOKStvRYrLLBll7l2DPazLJK8ctKZ6CTFxoycU+R73IliwwpqLCAhasD9N7Q8w=
@@ -20,6 +21,12 @@ env:
     - IMAGE_VERSION=$IMAGE:$COMMIT
     - DEPLOYMENT=frontend
     - CONTAINER_NAME=nodejs
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 script:
   - docker version
