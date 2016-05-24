@@ -40,4 +40,4 @@ after_script:
   - kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
   - kubectl config set-context default --cluster=default --user=default
   - kubectl config use-context default
-  - kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":'"$CONTAINER_NAME"',"image":'"$IMAGE_VERSION"'}]}}}}'
+  - kubectl patch deployment $DEPLOYMENT -p '{"spec":{"template":{"spec":{"containers":[{"name":"'"$CONTAINER_NAME"'","image":"'"$IMAGE_VERSION"'"}]}}}}'
