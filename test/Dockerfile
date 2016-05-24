@@ -2,12 +2,14 @@ FROM node:5.10-slim
 MAINTAINER Cheng Long <me@chengl.com>
 
 RUN mkdir -p /usr/src/app
-RUN apt-get update && apt-get install -y netcat
+WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app
+RUN apt-get install -y netcat
+
+COPY package.json /usr/src/app/
 RUN npm install
 RUN npm install -g mocha
 
-COPY . /usr/src/app
+COPY . /usr/src/app/
 
 CMD ./test.sh
