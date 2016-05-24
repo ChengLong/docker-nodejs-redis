@@ -6,10 +6,10 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && apt-get install -y netcat
 
-COPY package.json .
+COPY package.json /usr/src/app
 RUN npm install
 RUN npm install -g mocha
 
-COPY . .
+COPY . /usr/src/app
 
 CMD ./test.sh
