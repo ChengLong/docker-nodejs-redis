@@ -1,0 +1,11 @@
+{
+  "name": "sample_nodejs_with_redis",
+  "version": "1.0.0",
+  "description": "Node.js and redis on Docker",
+  "author": "Cheng Long <me@chengl.com>",
+  "main": "server.js",
+  "dependencies": {
+    "mocha": "^2.3.4",
+    "supertest": "^1.1.0"
+  }
+}
