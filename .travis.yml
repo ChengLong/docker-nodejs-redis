@@ -22,14 +22,12 @@ env:
     - CONTAINER_NAME=nodejs
 
 script:
-  - npm test
+  - docker-compose run test
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t $IMAGE_VERSION .
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker tag $IMAGE_VERSION $IMAGE:$TAG
-  - docker tag $IMAGE_VERSION $IMAGE:travis-$TRAVIS_BUILD_NUMBER
+  - docker build -t $IMAGE_VERSION -t $IMAGE:$TAG -t $IMAGE:travis-$TRAVIS_BUILD_NUMBER app
   - docker push $IMAGE
 
 after_script:
