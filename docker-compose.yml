@@ -1,24 +1,15 @@
-version: '2'
+app:
+  build: app/
+  ports:
+    - "80:8080"
+  links:
+    - redis
 
-services:
-  app:
-    build: app/
-    ports:
-      - "80:8080"
-    links:
-      - redis
+redis:
+  image: redis
+  command: redis-server --appendonly yes
 
-  redis:
-    image: redis
-    command: redis-server --appendonly yes
-    volumes:
-      - redis-data:/data
-
-  test:
-    build: test/
-    links:
-      - app
-
-volumes:
-  redis-data:
-    driver: local
+test:
+  build: test/
+  links:
+    - app
