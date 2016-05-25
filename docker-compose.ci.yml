@@ -1,0 +1,15 @@
+app:
+  image: chenglong/simple-node:latest
+  ports:
+    - "80:8080"
+  links:
+    - redis
+
+redis:
+  image: redis
+  command: redis-server --appendonly yes
+
+test:
+  build: test/
+  links:
+    - app
