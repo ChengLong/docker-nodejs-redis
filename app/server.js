@@ -14,7 +14,7 @@ app.get('/', function(req, res, next) {
     const response = {
       servedBy: 'This request is served by ' + os.hostname(),
       pageVisits: 'You have viewed this page ' + visits + ' times!',
-      serverTime: 'Server Time: ' + new Date().toISOString(),
+      serverTime: new Date().toISOString(),
       message: 'This is a random message!'
     };
 

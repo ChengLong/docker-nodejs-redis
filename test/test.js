@@ -19,7 +19,7 @@ describe("this awesome app",function(){
       .expect(function(res) {
         assert.ok(res.body.servedBy.startsWith('This request is served by '));
         assert.ok(res.body.pageVisits.startsWith('You have viewed this page '));
-        assert.ok(res.body.serverTime.startsWith('Server Time: '));
+        assert.ok(res.body.serverTime.match(/^[\d-]+T[\d:\.]+Z$/));
         assert.equal(res.body.message, 'This is a random message!');
       })
       .end(function(err, res) {
