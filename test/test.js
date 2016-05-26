@@ -20,7 +20,7 @@ describe("this awesome app",function(){
         assert.ok(res.body.servedBy.startsWith('This request is served by '));
         assert.ok(res.body.pageVisits.startsWith('You have viewed this page '));
         assert.ok(res.body.serverTime.match(/^[\d-]+T[\d:\.]+Z$/));
-        assert.equal(res.body.message, 'This is a random message!');
+        assert.equal(res.body.message, 'This message needs to change!');
       })
       .end(function(err, res) {
         if (err) return done(err);

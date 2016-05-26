@@ -15,7 +15,7 @@ app.get('/', function(req, res, next) {
       servedBy: 'This request is served by ' + os.hostname(),
       pageVisits: 'You have viewed this page ' + visits + ' times!',
       serverTime: new Date().toISOString(),
-      message: 'This is a random message!'
+      message: 'This message needs to change!'
     };
 
     res.status(200).json(response);
