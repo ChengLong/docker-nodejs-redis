@@ -15,7 +15,7 @@ app.get('/', function(req, res, next) {
       servedBy: 'This request is served by ' + os.hostname(),
       pageVisits: 'You have viewed this page ' + visits + ' times!',
       serverTime: new Date().toISOString(),
-      message: 'This message needs to change!'
+      message: 'Singapore Away Day is DAMN SHIOK!'
     };
 
     res.status(200).json(response);
