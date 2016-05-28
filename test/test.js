@@ -20,7 +20,7 @@ describe("this awesome app",function(){
         assert.ok(res.body.servedBy.startsWith('This request is served by '));
         assert.ok(res.body.pageVisits.startsWith('You have viewed this page '));
         assert.ok(res.body.serverTime.match(/^[\d-]+T[\d:\.]+Z$/));
-        assert.equal(res.body.message, 'Singapore Away Day is DAMN SHIOK!');
+        assert.equal(res.body.message, 'Random message!');
       })
       .end(function(err, res) {
         if (err) return done(err);
